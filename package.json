@@ -1,7 +1,7 @@
 {
   "name": "realtime-chat-app",
-  "version": "1.0.0",
-  "description": "A full-stack real-time chat application using Node.js, Express, and Socket.IO",
+  "version": "2.0.0",
+  "description": "A complete full-stack real-time chat application with private messaging, file sharing, emoji support, and more",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -9,11 +9,13 @@
   },
   "dependencies": {
     "express": "^4.18.2",
-    "socket.io": "^4.7.4"
+    "socket.io": "^4.7.4",
+    "uuid": "^9.0.0",
+    "bad-words": "^3.0.4"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
   },
-  "keywords": ["chat", "realtime", "socketio", "nodejs", "express"],
+  "keywords": ["chat", "realtime", "socketio", "nodejs", "express", "messaging", "collaboration"],
   "license": "MIT"
 }
