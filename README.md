@@ -31,8 +31,8 @@ A full-stack real-time chat application built with Node.js, Express, and Socket.
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
-   cd realtime-chat-app
+   git clone https://github.com/WILSONQT3/realtime-chat-app_v1.git
+   cd realtime-chat-app_v1
    ```
 
 2. Install dependencies:
@@ -67,7 +67,7 @@ The server will start on `http://localhost:3000` (or the port specified in the `
 ## Project Structure
 
 ```
-realtime-chat-app/
+realtime-chat-app_v1/
 ├── public/
 │   ├── index.html      # Main HTML file
 │   ├── styles.css      # CSS styles
