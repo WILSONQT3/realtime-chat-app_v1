@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realtime Chat App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Join Screen -->
+    <div id="join-screen" class="screen active">
+        <div class="join-container">
+            <div class="join-header">
+                <div class="logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect width="40" height="40" rx="10" fill="#6366f1"/>
+                        <path d="M12 20C12 15.5817 15.5817 12 20 12C24.4183 12 28 15.5817 28 20C28 24.4183 24.4183 28 20 28" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M20 16V20L23 23" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h1>ChatRoom</h1>
+                </div>
+                <p class="subtitle">Connect with people in real-time</p>
+            </div>
+            <form id="join-form" class="join-form">
+                <div class="input-group">
+                    <label for="username-input">Choose your username</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <circle cx="10" cy="7" r="3" stroke="#94a3b8" stroke-width="1.5"/>
+                            <path d="M4 18C4 14.6863 6.68629 12 10 12C13.3137 12 16 14.6863 16 18" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        <input
+                            type="text"
+                            id="username-input"
+                            placeholder="Enter your username..."
+                            maxlength="30"
+                            minlength="2"
+                            autocomplete="off"
+                            required
+                        />
+                    </div>
+                    <span class="input-hint">2-30 characters, must be unique</span>
+                </div>
+                <button type="submit" id="join-btn" class="btn btn-primary">
+                    Join Chat
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </form>
+            <div id="join-error" class="error-message hidden"></div>
+        </div>
+    </div>
+
+    <!-- Chat Screen -->
+    <div id="chat-screen" class="screen">
+        <div class="chat-layout">
+            <!-- Sidebar -->
+            <aside id="sidebar" class="sidebar">
+                <div class="sidebar-header">
+                    <div class="logo small">
+                        <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="10" fill="#6366f1"/>
+                            <path d="M12 20C12 15.5817 15.5817 12 20 12C24.4183 12 28 15.5817 28 20C28 24.4183 24.4183 28 20 28" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M20 16V20L23 23" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <h2>ChatRoom</h2>
+                    </div>
+                    <button id="leave-btn" class="btn btn-icon" title="Leave chat">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M7 17H4C3.44772 17 3 16.5523 3 16V4C3 3.44772 3.44772 3 4 3H7M13 14L17 10L13 6M17 10H7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="sidebar-section">
+                    <div class="section-title">
+                        <span>Online</span>
+                        <span id="online-count" class="badge">0</span>
+                    </div>
+                    <ul id="online-users" class="online-users">
+                        <!-- Users will be populated here -->
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Main Chat Area -->
+            <main class="chat-main">
+                <div class="chat-header">
+                    <div class="chat-header-info">
+                        <h3># General</h3>
+                        <span class="chat-status">Real-time chat room</span>
+                    </div>
+                    <div class="chat-header-actions">
+                        <span id="current-user" class="current-user"></span>
+                    </div>
+                </div>
+
+                <div id="messages-container" class="messages-container">
+                    <!-- Messages will be populated here -->
+                </div>
+
+                <div id="typing-indicator" class="typing-indicator hidden">
+                    <span id="typing-text"></span>
+                </div>
+
+                <form id="message-form" class="message-form">
+                    <div class="input-wrapper message-input-wrapper">
+                        <input
+                            type="text"
+                            id="message-input"
+                            placeholder="Type your message..."
+                            maxlength="1000"
+                            autocomplete="off"
+                            required
+                        />
+                        <button type="submit" id="send-btn" class="btn btn-send" disabled>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M10 4V16M10 4L6 8M10 4L14 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
